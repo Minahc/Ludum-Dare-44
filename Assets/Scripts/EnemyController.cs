@@ -15,7 +15,9 @@ public class EnemyController : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
+		Debug.Log(health);
 		player = GameObject.FindGameObjectWithTag("Player").transform;
+
 	}
 
     // Update is called once per frame
@@ -33,14 +35,16 @@ public class EnemyController : MonoBehaviour {
     }
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Bullet")) {
-			if (BulletControl.dmgUp == 1) {
-				health -= 2;
-			} else if(BulletControl.dmgUp == 2) {
-				health -= 3;
+			if (BulletControl.isDestroyed) return;
+
+			if (BulletControl.dmgUp >= 1) {
+				health -= 1+BulletControl.dmgUp;
 			} else {
 				health--;
 			}
-			
+			if (BulletControl.knock >= 1) {
+				transform.GetComponent<Rigidbody2D>().AddForce(collision.transform.up*BulletControl.knock);
+			}
         }
 		if (type == enemyType.Health) {
 			if (collision.gameObject.CompareTag("Wall")) {

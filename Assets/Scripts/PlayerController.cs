@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
     public float playerSpeed = 5f;
@@ -31,9 +32,8 @@ public class PlayerController : MonoBehaviour {
             GameObject projectile = (GameObject)Instantiate(Bullet, (Vector2)transform.position, transform.rotation * Quaternion.Euler(0, 0, 90));   
             projectile.transform.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
         }
-		if (health < 0)
-		{
-			
+		if (health <= 0) {
+			SceneManager.LoadScene("Lose Screen");
 		}
 		GameObject.FindGameObjectWithTag("Text").GetComponent<Text>().text = health+"";
     }

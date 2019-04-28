@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Text
   - Button
+  - Level
   layers:
   - Default
   - TransparentFX
